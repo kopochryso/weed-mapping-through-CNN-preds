@@ -1,0 +1,49 @@
+import os
+import re
+import pandas as pd
+
+
+# Path to your main YOLO annotation folder containing subfolders
+yolo_main_folder = r"C:/Users/…"  # .txt annotations of the YOLO model
+frame_metadata_file = r"C:/Users/…/metadata.csv"
+
+
+# Load the frame metadata
+frame_metadata = pd.read_csv(frame_metadata_file)
+
+
+annotations = []
+frame_num_pattern = re.compile(r"(\d+)\.txt")
+
+
+# Loop through each folder in the main YOLO folder
+for root, dirs, files in os.walk(yolo_main_folder):
+    for txt_file in files:
+        if txt_file.endswith(".txt"):
+            match = frame_num_pattern.search(txt_file)
+            if match:
+                frame_num = int(match.group(1))  # Extract the frame number
+                frame_data = frame_metadata[frame_metadata["FrameNum"] == frame_num]
+                
+                if not frame_data.empty:
+                    lat, lon = frame_data.iloc[0]["Latitude"], frame_data.iloc[0]["Longitude"]
+
+
+                    # Read the YOLO annotation file
+                    with open(os.path.join(root, txt_file), "r") as file:
+                        for line in file:
+                            class_id, x_center, y_center, width, height = map(float, line.strip().split())
+                            annotations.append([
+                                frame_num, class_id, lat, lon, x_center, y_center, width, height
+                            ])
+
+
+# Save all annotations to a single CSV
+df_annotations = pd.DataFrame(
+    annotations,
+    columns=["FrameNum", "ClassID", "Latitude", "Longitude", "X_Center", "Y_Center", "Width", "Height"]
+)
+df_annotations.to_csv("all_yolo_annotations.csv", index=False)
+
+
+print("All YOLO annotations saved to all_yolo_annotations.csv")
