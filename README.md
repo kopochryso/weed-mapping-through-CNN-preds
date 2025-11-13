@@ -1,5 +1,5 @@
 # weed-mapping-through-CNN-preds
-using a selected YOLO model's predictions into implementing weed maps through QGIS environment.
+# using a selected YOLO model's predictions into implementing weed maps through QGIS environment.
 
 ## So part of my work as a researcher in the lovely sector of Precision Agriculture, was the development and assessment of various deep learning models for the automated detection of four selected weeds.
 ### So what happens when we combine the selected model's weed predictions (.txt files where labels are in YOLO format) and the drone's metadata file (valuable info regarding the timestamp, rel_altitude, longitutde, latitude, etc.)
