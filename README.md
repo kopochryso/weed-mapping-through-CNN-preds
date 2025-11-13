@@ -26,20 +26,21 @@ agronomic insights,
 
 📌 Project Structure
 weed-mapping-through-CNN-preds/
-│
-├── src/
-│   ├── part1_dominant_weed_map.py
-│   ├── part2_relative_percentage_map.py
-│   ├── part3_absolute_weed_counts.py  
-│
-├── data_example/
-│   ├── metadata_example.csv
-│   └── labels_example/
-│
-├── outputs_example/
-│
-├── requirements.txt
-└── README.md
+
+│  
+├── src/  
+│   ├── part1_dominant_weed_map.py  
+│   ├── part2_relative_percentage_map.py  
+│   ├── part3_absolute_weed_counts.py    
+│  
+├── data_example/  
+│   ├── metadata_example.csv  
+│   └── labels_example/  
+│  
+├── outputs_example/  
+│  
+├── requirements.txt  
+└── README.md  
 
 
 📍 The Three Types of Weed Maps
