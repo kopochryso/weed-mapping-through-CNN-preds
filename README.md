@@ -26,7 +26,8 @@ agronomic insights,
 
 📌 Project Structure
 
-weed-mapping-through-CNN-preds/
+weed-mapping-through-CNN-preds/  
+
 ├── src/  
 │   ├── part1_dominant_weed_map.py  
 │   ├── part2_relative_percentage_map.py  
