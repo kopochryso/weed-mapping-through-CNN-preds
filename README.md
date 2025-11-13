@@ -1,27 +1,110 @@
-# weed-mapping-through-CNN-preds
-# using a selected YOLO model's predictions into implementing weed maps through QGIS environment.
+🌱 Weed Mapping Through CNN Predictions
+Generating Weed Distribution Maps Using YOLO Detections & UAV Metadata
 
-## So part of my work as a researcher in the lovely sector of Precision Agriculture, was the development and assessment of various deep learning models for the automated detection of four selected weeds.
-### So what happens when we combine the selected model's weed predictions (.txt files where labels are in YOLO format) and the drone's metadata file (valuable info regarding the timestamp, rel_altitude, longitutde, latitude, etc.)
+This repository contains the code used to generate three different weed-mapping products from drone imagery and YOLO detection outputs.
+The pipeline combines:
 
-### This rep is for organizing the scripts and files that were used to produce three types of weed maps, depending on the farmer's needs.
+- YOLO prediction .txt label files
 
-**DISCLAIMER!!!!!!! THE MAPS CANT BE PROPERLY USED FOR ADVANCED APPLICATIONS SUCH AS EG. PATCH-SPRAYING DUE TO THE RELATIVELY LOW GPS PRECISION. AN RTK GPS FOR EXAMPLE SHOULD BE PROVIDED, FOR PRECISED GEO-REFERENCING.**
+- UAV metadata (timestamp, GPS coordinates, altitude, etc.)
 
-Three types of maps were produced:
+- Custom Python scripts
 
-## 1)Dominant-weed-map.
-### As the name tells, each frame of the drone contains the most dominant weed that appeared in total. 
-### So if class 1 had 10 depictions, class 2 had 5 and class 3 had 3, the frame will show class 1.
+- QGIS for geographic visualization
 
-## 2)Relative-%-weed (compared to others)
-### Moving on to the second category, this map will show the relative percentage (%) of coverage for each weed that is located per frame. This map is produced per each class (so for example, if the weeds were 10 then 10 maps per each class must be produced. 
-### Of course nothing is obligatory, but that's just how it works :p)
-### Case example: in a frame, class 1 has 10 depictions and class 2 has 1 depiction. So the same frame for class 1 will show class 1 as 90%, while for class 2 it will show 10%.
+- These tools were developed as part of my research work in Precision Agriculture.
 
-## 3)Absolute-number-of-weed (unrelevant in comparison to others)
-### The third and last category shows each frame per absolute number of the weed which as it's already spoiled, each frame is independant of the other classes. Similar to the second category, this map is produced per each class.
-### So if a frame has 10 weeds of class 1, 5 weeds of class 2 and 2 weeds of class 3, for the 3 seperate maps the same frame will show the number 10 for class 1, 5 for class 2 and 2 for class 3.
+⚠️ Disclaimer
 
-## hope you enjoyed my rep <3 
+GPS positions originate from non-RTK UAV sensors, meaning final maps are suitable for:
 
+visualization,
+scouting,
+agronomic insights,
+…but NOT for high-precision applications (e.g., patch-spraying) unless RTK-grade GPS data is provided.
+
+📌 Project Structure
+weed-mapping-through-CNN-preds/
+│
+├── src/
+│   ├── part1_dominant_weed_map.py
+│   ├── part2_relative_percentage_map.py
+│   ├── part3_absolute_weed_counts.py   <-- NEW
+│
+├── data_example/
+│   ├── metadata_example.csv
+│   └── labels_example/
+│
+├── outputs_example/
+│
+├── requirements.txt
+└── README.md
+
+📍 The Three Types of Weed Maps
+1️⃣ Dominant Weed Map
+
+Shows which weed class is most dominant in each frame.
+Example:
+Frame contains 10 AMARE, 5 CHEAL, 3 CYPES → Dominant weed = AMARE
+
+Use case:
+
+Quickly visualize which weed species dominates each part of the field
+
+2️⃣ Relative Percent (%) Weed Coverage
+
+Shows the percentage of each weed class relative to total detections per frame.
+
+Example:
+Frame: 10 AMARE, 1 CHEAL
+→ AMARE = 90%, CHEAL = 10%
+
+Use case:
+
+Comparing weed distributions across species
+
+Field-level weed pressure analysis per species
+
+3️⃣ Absolute Number of Weeds (Per Class)
+
+Counts every weed detection per frame, independently of other classes.
+
+Example:
+Frame contains:
+
+10 AMARE
+
+5 CHEAL
+
+2 CYPES
+
+Then three maps are produced showing the absolute count for each class.
+
+Use case:
+
+Raw density information
+
+Input for heatmaps or kernel density estimation in QGIS
+
+Per-species scouting
+
+🚀 Running the Scripts
+
+All scripts live in:
+
+src/
+
+
+Example usage (absolute counts script):
+
+python src/part3_absolute_weed_counts.py \
+  --yolo path/to/labels \
+  --metadata path/to/metadata.csv \
+  --output outputs/absolute_counts \
+  --save_per_frame \
+  --save_per_weed
+
+
+More detailed instructions will be added per script.
+
+❤️ Thanks for checking out this repository!
