@@ -29,7 +29,7 @@ weed-mapping-through-CNN-preds/
 ├── src/
 │   ├── part1_dominant_weed_map.py
 │   ├── part2_relative_percentage_map.py
-│   ├── part3_absolute_weed_counts.py   <-- NEW
+│   ├── part3_absolute_weed_counts.py  
 │
 ├── data_example/
 │   ├── metadata_example.csv
