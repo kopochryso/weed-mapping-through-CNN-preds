@@ -14,14 +14,15 @@ The pipeline combines:
 
 - These tools were developed as part of my research work in Precision Agriculture.
 
-⚠️ Disclaimer
+
+⚠️**Disclaimer**
 
 GPS positions originate from non-RTK UAV sensors, meaning final maps are suitable for:
-
 visualization,
 scouting,
 agronomic insights,
 …but NOT for high-precision applications (e.g., patch-spraying) unless RTK-grade GPS data is provided.
+
 
 📌 Project Structure
 weed-mapping-through-CNN-preds/
@@ -40,63 +41,37 @@ weed-mapping-through-CNN-preds/
 ├── requirements.txt
 └── README.md
 
-📍 The Three Types of Weed Maps
-1️⃣ Dominant Weed Map
 
+📍 The Three Types of Weed Maps
+
+1️⃣ Dominant Weed Map
 Shows which weed class is most dominant in each frame.
 Example:
 Frame contains 10 AMARE, 5 CHEAL, 3 CYPES → Dominant weed = AMARE
 
-Use case:
-
-Quickly visualize which weed species dominates each part of the field
+Use case: visualize which weed species dominates each part of the field
 
 2️⃣ Relative Percent (%) Weed Coverage
-
 Shows the percentage of each weed class relative to total detections per frame.
-
 Example:
 Frame: 10 AMARE, 1 CHEAL
 → AMARE = 90%, CHEAL = 10%
 
-Use case:
-
-Comparing weed distributions across species
-
-Field-level weed pressure analysis per species
+Use case: comparing weed distributions across species - field-level weed pressure analysis per species
 
 3️⃣ Absolute Number of Weeds (Per Class)
-
 Counts every weed detection per frame, independently of other classes.
-
 Example:
-Frame contains:
+Frame contains: 10 AMARE - 5 CHEAL - 2 CYPES
+--> Then three maps are produced showing the absolute count for each class.
 
-10 AMARE
+Use case: raw density information, input for heatmaps or kernel density estimation in QGIS, per-species scouting
 
-5 CHEAL
-
-2 CYPES
-
-Then three maps are produced showing the absolute count for each class.
-
-Use case:
-
-Raw density information
-
-Input for heatmaps or kernel density estimation in QGIS
-
-Per-species scouting
 
 🚀 Running the Scripts
-
-All scripts live in:
-
-src/
-
+All scripts are located in src/
 
 Example usage (absolute counts script):
-
 python src/part3_absolute_weed_counts.py \
   --yolo path/to/labels \
   --metadata path/to/metadata.csv \
@@ -106,5 +81,7 @@ python src/part3_absolute_weed_counts.py \
 
 
 More detailed instructions will be added per script.
+
+
 
 ❤️ Thanks for checking out this repository!
